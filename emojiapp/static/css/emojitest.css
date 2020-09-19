@@ -1,0 +1,12 @@
+.container {
+    padding: 50px;
+}
+
+.emoji-container {
+    display: flex;
+}
+
+.emoji {
+    font-size: 55px;
+    margin: 0 5px 0 0;
+}
