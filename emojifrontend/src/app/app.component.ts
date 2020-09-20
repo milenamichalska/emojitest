@@ -11,11 +11,16 @@ export class AppComponent implements OnInit {
   constructor(private emojiApi: EmojiApi) {}
 
   public emojis = [];
+  public searchInput = '';
 
-  ngOnInit() {
-    this.emojiApi.getEmojis().subscribe((emojis) => {
+  searchEmojis(query) {
+    this.emojiApi.getEmojis(query).subscribe((emojis) => {
       this.emojis = emojis;
     });
+  }
+
+  ngOnInit() {
+    this.searchEmojis('');
   }
 
 }

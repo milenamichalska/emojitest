@@ -5,4 +5,3 @@ emojivenv
 db.sqlite3
 /static
 .DS_Store
-emojisite/local_settings.py

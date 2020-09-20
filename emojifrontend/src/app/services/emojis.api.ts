@@ -6,8 +6,8 @@ import {Observable} from 'rxjs';
 export class EmojiApi {
     constructor(private http: HttpClient) {}
 
-    getEmojis(): Observable<any> {
-        const url = '/getEmojis';
+    getEmojis(query = ''): Observable<any> {
+        const url = '/api/emojsSearch/?search=' + query;
         return this.http.get(url);
     }
 }

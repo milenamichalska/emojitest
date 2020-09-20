@@ -7,7 +7,14 @@
         <h2>Find your emotion:</h2>
         <br>
         <div class="form-group">
-            <input type="text" class="form-control" id="searchInput" placeholder="Start typing how are you feeling">
+            <input 
+                type="text"
+                class="form-control"
+                id="searchInput"
+                placeholder="Start typing how are you feeling"
+                [(ngModel)]="searchInput"
+                (keyup)="searchEmojis(searchInput)"
+            >
         </div>
         <br>
         <div class="emoji-container">
