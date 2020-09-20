@@ -1,0 +1,18 @@
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head> 
+<body>
+    <div class="container">
+        <h2>Find your emotion:</h2>
+        <br>
+        <div class="form-group">
+            <input type="text" class="form-control" id="searchInput" placeholder="Start typing how are you feeling">
+        </div>
+        <br>
+        <div class="emoji-container">
+          <div *ngFor="let emoji of emojis" class="emoji">{{emoji.emoji}}</div>
+        </div>
+    </div>
+</body>
+</html>
