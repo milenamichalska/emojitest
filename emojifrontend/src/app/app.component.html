@@ -18,7 +18,12 @@
         </div>
         <br>
         <div class="emoji-container">
-          <div *ngFor="let emoji of emojis" class="emoji">{{emoji.emoji}}</div>
+          <div *ngFor="let emoji of emojis"
+                class="emoji-wrapper"
+                [ngClass]="{selected: isSelected(emoji)}"
+                (click)="select(emoji)">
+                <div class="emoji">{{emoji.emoji}}</div>
+            </div>
         </div>
     </div>
 </body>
