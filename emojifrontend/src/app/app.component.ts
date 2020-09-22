@@ -25,7 +25,6 @@ export class AppComponent implements OnInit {
   }
 
   select(emoji) {
-    console.log(this.selectedEmojis);
     const i = this.selectedEmojis.findIndex(e => e.emojiName === emoji.emojiName);
     if (i === -1) {
       this.selectedEmojis.push(emoji);
