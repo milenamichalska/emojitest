@@ -4,6 +4,7 @@
 </head> 
 <body>
     <div class="container">
+        <div id="select-emoji" *ngIf="currentStep == 'select-emoji'">
         <h2>Find your emotion:</h2>
         <br>
         <div class="form-group">
@@ -17,17 +18,50 @@
             >
         </div>
         <br>
-        <div class="emoji-container">
+        <div class="emoji-container" [ngClass]="{wrapped: selectedEmojis.length > 0}">
           <div *ngFor="let emoji of emojis"
                 class="emoji-wrapper"
                 [ngClass]="{selected: isSelected(emoji)}"
                 (click)="select(emoji)">
                 <div class="emoji">{{emoji.emoji}}</div>
             </div>
+        </div></div>
+        <div id="finalize" *ngIf="currentStep == 'finalize'">
+            <h2>Selected emoji</h2><br>
+            <div class="emoji-container">
+                <div *ngFor="let emoji of selectedEmojis"
+                    class="emoji-wrapper">
+                    <div class="emoji">{{emoji.emoji}}</div>
+                </div>
+            </div><br>
+            <h2>Time</h2><br>
+            <div class="form-group">
+                <select class="form-control form-control-lg">
+                    <option *ngFor="let mealtime of mealtimes">{{mealtime.mealTimeName}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <select class="form-control form-control-lg">
+                    <option *ngFor="let meal of meals">{{meal.mealName}}</option>
+                </select>
+            </div>
+            <div class="spinner-wrapper" *ngIf="pending">
+                <div class="spinner-border text-success" role="status">
+                    <span class="sr-only">Sending...</span>
+                </div>
+            </div>
+            <br><br>
+            <button type="button" 
+                    class="proceed-button btn btn-success btn-lg btn-block"
+                    (click)="send()"
+                    [disabled]="pending">
+                Send emoji test!
+            </button>
+            <button type="button" class="proceed-button btn btn-light btn-lg btn-block" (click)="back()">Go back to emoji select</button>
         </div>
-    </div>
-    <div class="proceed-button-wrapper" *ngIf="selectedEmojis.length > 0">
-        <button type="button" class="proceed-button btn btn-success btn-lg btn-block">Proceed with selected</button>
+</div>
+    <div class="proceed-button-wrapper" *ngIf="selectedEmojis.length > 0 && currentStep == 'select-emoji'">
+        <button type="button" class="proceed-button btn btn-success btn-lg btn-block" (click)="proceed()">Proceed with selected</button>
     </div>
 </body>
 </html>

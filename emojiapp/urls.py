@@ -6,5 +6,8 @@ from . import views
 urlpatterns = [
     # path('', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('emojsSearch/', views.SearchEmojiAPIView.as_view())
+    path('emojis/', views.SearchEmojiAPIView.as_view()),
+    path('meals/', views.MealsAPIView.as_view()),
+    path('mealtimes/', views.MealTimesAPIView.as_view()),
+    path('test-entries/', views.TestEntryAPIView.as_view())
 ]

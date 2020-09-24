@@ -30,6 +30,7 @@ class MealTimeSerializer(serializers.ModelSerializer):
         fields = ['mealTimeName']
 
 class TestEntrySerializer(serializers.ModelSerializer):
+    emoji = EmojiSerializer(read_only=True, many=True)
     class Meta:
         model = TestEntry
         fields = ['user', 'emoji', 'meal', 'beforeAfter', 'created_date']

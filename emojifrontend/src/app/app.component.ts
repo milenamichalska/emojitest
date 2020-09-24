@@ -11,8 +11,15 @@ export class AppComponent implements OnInit {
   constructor(private emojiApi: EmojiApi) {}
 
   public emojis = [];
+  public meals = [];
+  public mealtimes = [];
   public selectedEmojis = [];
+  public selectedMeal;
+  public selectedMealTime;
   public searchInput = '';
+  public pending = false;
+
+  public currentStep = 'select-emoji';
 
   searchEmojis(query) {
     this.emojiApi.getEmojis(query).subscribe((emojis) => {
@@ -33,8 +40,31 @@ export class AppComponent implements OnInit {
     }
   }
 
+  proceed() {
+    this.currentStep = 'finalize';
+  }
+
+  back() {
+    this.currentStep = 'select-emoji';
+  }
+
+  send() {
+    this.pending = true;
+    this.emojiApi.postTestEntry(this.selectedEmojis, this.selectedMeal, this.selectedMealTime).subscribe((resp) => {
+      console.log(resp);
+    })
+  }
+
   ngOnInit() {
     this.searchEmojis('');
+    this.emojiApi.getMeals().subscribe((meals) => {
+      this.meals = meals;
+      this.selectedMeal = meals[0];
+    });
+    this.emojiApi.getMealTimes().subscribe((mealtimes) => {
+      this.mealtimes = mealtimes;
+      this.selectedMealTime = mealtimes[0];
+    });
   }
 
 }

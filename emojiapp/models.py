@@ -19,7 +19,7 @@ class MealTime(models.Model):
 
 class TestEntry(models.Model):
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
-    emoji = models.ForeignKey('Emoji', on_delete=models.CASCADE)
+    emoji = models.ManyToManyField(Emoji)
     beforeAfter = models.ForeignKey('MealTime', on_delete=models.CASCADE)
     meal = models.ForeignKey('Meal', on_delete=models.CASCADE)
     created_date = models.DateTimeField(

@@ -11,6 +11,10 @@
     justify-content: center;
 }
 
+.emoji-container.wrapped {
+    max-height: calc(75vh - 70px);
+}
+
 .emoji-wrapper {
     font-size: 55px;
     margin: 10px 10px 0 0;
@@ -46,4 +50,15 @@
 .proceed-button {
     max-width: 500px;
     margin: auto !important;
+}
+
+.spinner-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.spinner-border {
+    width: 50px;
+    height: 50px;
 }

@@ -7,7 +7,22 @@ export class EmojiApi {
     constructor(private http: HttpClient) {}
 
     getEmojis(query = ''): Observable<any> {
-        const url = '/api/emojsSearch/?search=' + query;
+        const url = '/api/emojis/?search=' + query;
         return this.http.get(url);
+    }
+
+    getMeals(): Observable<any> {
+        const url = '/api/meals';
+        return this.http.get(url);
+    }
+
+    getMealTimes(): Observable<any> {
+        const url = '/api/mealtimes';
+        return this.http.get(url);
+    }
+
+    postTestEntry(emoji, meal, beforeAfter): Observable<any> {
+        const url = '/api/test-entries/';
+        return this.http.post(url, {emoji, meal, beforeAfter});
     }
 }
