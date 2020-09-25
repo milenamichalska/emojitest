@@ -11,6 +11,10 @@
     justify-content: center;
 }
 
+.without-scroll {
+    overflow:  hidden;
+}
+
 .emoji-container.wrapped {
     max-height: calc(75vh - 70px);
 }

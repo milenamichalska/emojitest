@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EmojiApi } from './services/emojis.api';
+import { AuthApi } from './services/auth.api';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +9,7 @@ import { EmojiApi } from './services/emojis.api';
 })
 
 export class AppComponent implements OnInit {
-  constructor(private emojiApi: EmojiApi) {}
+  constructor(private emojiApi: EmojiApi, private authApi: AuthApi) {}
 
   public emojis = [];
   public meals = [];
@@ -19,7 +20,10 @@ export class AppComponent implements OnInit {
   public searchInput = '';
   public pending = false;
 
-  public currentStep = 'select-emoji';
+  public currentStep = 'login';
+
+  public username = '';
+  public password = '';
 
   searchEmojis(query) {
     this.emojiApi.getEmojis(query).subscribe((emojis) => {
@@ -50,21 +54,45 @@ export class AppComponent implements OnInit {
 
   send() {
     this.pending = true;
-    this.emojiApi.postTestEntry(this.selectedEmojis, this.selectedMeal, this.selectedMealTime).subscribe((resp) => {
+    const user = localStorage.getItem('username');
+    const emojis = this.selectedEmojis.map((emoji) => emoji.emojiName);
+    this.emojiApi.postTestEntry(user,
+       emojis,
+       this.selectedMeal.mealName,
+       this.selectedMealTime.mealTimeName).subscribe((resp) => {
       console.log(resp);
-    })
+    });
+  }
+
+  login() {
+    this.pending = true;
+    this.authApi.login(this.username, this.password).subscribe((resp) => {
+      localStorage.setItem('token', resp.token);
+      localStorage.setItem('username', this.username);
+      this.pending = false;
+      this.currentStep = 'select-emoji';
+      this.getEmojitestData();
+    });
+  }
+
+  getEmojitestData() {
+    this.searchEmojis('');
+    this.emojiApi.getMeals().subscribe((meals) => {
+        this.meals = meals;
+        this.selectedMeal = meals[0];
+      });
+    this.emojiApi.getMealTimes().subscribe((mealtimes) => {
+        this.mealtimes = mealtimes;
+        this.selectedMealTime = mealtimes[0];
+      });
   }
 
   ngOnInit() {
-    this.searchEmojis('');
-    this.emojiApi.getMeals().subscribe((meals) => {
-      this.meals = meals;
-      this.selectedMeal = meals[0];
-    });
-    this.emojiApi.getMealTimes().subscribe((mealtimes) => {
-      this.mealtimes = mealtimes;
-      this.selectedMealTime = mealtimes[0];
-    });
+
+    if (localStorage.getItem('token')) {
+      this.currentStep = 'select-emoji';
+      this.getEmojitestData();
+    }
   }
 
 }

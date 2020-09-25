@@ -30,7 +30,24 @@ class MealTimeSerializer(serializers.ModelSerializer):
         fields = ['mealTimeName']
 
 class TestEntrySerializer(serializers.ModelSerializer):
-    emoji = EmojiSerializer(read_only=True, many=True)
+    # emoji = EmojiSerializer(read_only=True, many=True)
+    emoji = serializers.SlugRelatedField(
+        many=True,
+        slug_field='emojiName',
+        queryset=Emoji.objects.all()
+    )
+    user = serializers.SlugRelatedField(
+        slug_field='username',
+        queryset=User.objects.all()
+     )
+    meal = serializers.SlugRelatedField(
+        slug_field='mealName',
+        queryset=Meal.objects.all()
+    )
+    beforeAfter = serializers.SlugRelatedField(
+        slug_field='mealTimeName',
+        queryset=MealTime.objects.all()
+    )
     class Meta:
         model = TestEntry
         fields = ['user', 'emoji', 'meal', 'beforeAfter', 'created_date']

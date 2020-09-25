@@ -5,6 +5,8 @@ from rest_framework import viewsets, filters, generics
 from emojiapp.models import Emoji, Meal, MealTime, TestEntry
 from emojiapp.serializers import EmojiSerializer, MealSerializer, MealTimeSerializer, TestEntrySerializer
 
+from django.views.decorators.csrf import csrf_exempt
+
 class SearchEmojiAPIView(generics.ListCreateAPIView):
 	search_fields = ['emojiName']
 	filter_backends = (filters.SearchFilter,)

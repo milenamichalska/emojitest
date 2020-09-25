@@ -21,8 +21,8 @@ export class EmojiApi {
         return this.http.get(url);
     }
 
-    postTestEntry(emoji, meal, beforeAfter): Observable<any> {
+    postTestEntry(user, emoji, meal, beforeAfter): Observable<any> {
         const url = '/api/test-entries/';
-        return this.http.post(url, {emoji, meal, beforeAfter});
+        return this.http.post(url, {user, emoji, meal, beforeAfter});
     }
 }

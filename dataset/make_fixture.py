@@ -8,7 +8,6 @@ with open('emojis.csv', encoding="utf8") as csvfile:
     for i, row in enumerate(emojireader):
         fixture_object = {
             "model": "emojiapp.emoji",
-            "pk": i,
             "fields": {
                 "emoji": row[0],
                 "emojiName": row[1]
