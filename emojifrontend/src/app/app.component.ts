@@ -52,6 +52,12 @@ export class AppComponent implements OnInit {
     this.currentStep = 'select-emoji';
   }
 
+  reset() {
+    this.selectedEmojis = [];
+    this.selectedMeal = this.meals[0];
+    this.selectedMealTime = this.mealtimes[0];
+  }
+
   send() {
     this.pending = true;
     const user = localStorage.getItem('username');
@@ -60,8 +66,10 @@ export class AppComponent implements OnInit {
        emojis,
        this.selectedMeal.mealName,
        this.selectedMealTime.mealTimeName).subscribe((resp) => {
-      console.log(resp);
-    });
+        this.pending = false;
+        this.reset();
+        this.currentStep = 'success';
+      });
   }
 
   login() {
@@ -73,6 +81,11 @@ export class AppComponent implements OnInit {
       this.currentStep = 'select-emoji';
       this.getEmojitestData();
     });
+  }
+
+  logout() {
+    localStorage.clear();
+    this.currentStep = 'login';
   }
 
   getEmojitestData() {
